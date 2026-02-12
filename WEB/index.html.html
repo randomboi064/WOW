@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <meta name='description' content='Blog minimal y moderno'/>
+    <title>• Ungender •</title>
+    <style>
+    /* --- RESET & ESTILOS BASE --- */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap');
+    
+    * { 
+        box-sizing: border-box; 
+    }
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        background: #fff;
+        color: #000;
+        line-height: 1.6;
+    }
+    
+    a { 
+        text-decoration: none; 
+        color: inherit; 
+    }
+    
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* --- CABECERA --- */
+    .site-header {
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 30px;
+        padding: 0;
+    }
+    
+    .top-nav {
+        display: flex;
+        justify-content: flex-end;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 20px;
+        gap: 15px;
+        border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .top-nav a {
+        position: relative;
+        transition: color 0.3s;
+    }
+    
+    .top-nav a:hover {
+        color: #666;
+    }
+    
+    .big-title {
+        font-size: clamp(2rem, 14vw, 6rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 0.8;
+        letter-spacing: -0.04em;
+        text-align: center;
+        margin: 0;
+        padding: 40px 20px;
+        color: #000;
+        width: 100%;
+        display: block;
+    }
+    
+    .big-title:hover {
+        opacity: 0.8;
+    }
+
+    /* --- GRID LAYOUT --- */
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .blog-posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border-top: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        margin-bottom: 40px;
+    }
+
+    /* --- TARJETA DE POST --- */
+    .post-card {
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        min-height: 500px;
+        transition: background 0.2s;
+    }
+    
+    .post-card:hover {
+        background: #fafafa;
+    }
+
+    /* Cabecera de la tarjeta */
+    .card-meta-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 11px;
+        color: #666;
+    }
+    
+    .card-tag {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 4px 8px;
+        text-transform: uppercase;
+        font-size: 9px;
+    }
+
+    /* Imagen */
+    .card-image-container {
+        width: 100%;
+        height: 250px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        background: #f0f0f0;
+    }
+    
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%);
+        transition: transform 0.3s, filter 0.3s;
+    }
+    
+    .post-card:hover .card-image {
+        transform: scale(1.05);
+        filter: grayscale(80%);
+    }
+
+    /* Contenido */
+    .card-title {
+        font-size: 22px;
+        font-weight: 900;
+        margin: 0 0 15px 0;
+        line-height: 1.1;
+    }
+    
+    .card-title a:hover {
+        opacity: 0.7;
+    }
+    
+    .card-excerpt {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #666;
+        margin-bottom: auto;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Footer de la tarjeta */
+    .card-footer {
+        margin-top: 25px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #000;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+    /* --- PAGINACIÓN --- */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 40px 20px;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+    
+    .pagination a {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        transition: all 0.2s;
+    }
+    
+    .pagination a:hover {
+        border-color: #000;
+        background: #f5f5f5;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        border-top: 1px solid #f0f0f0;
+        color: #999;
+        font-size: 12px;
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 900px) {
+        .blog-posts {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .big-title {
+            font-size: 8vw;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .blog-posts {
+            grid-template-columns: 1fr;
+        }
+        .big-title {
+            font-size: 10vw;
+            padding: 30px 20px;
+        }
+        .top-nav {
+            font-size: 10px;
+            gap: 10px;
+        }
+        .post-card {
+            min-height: auto;
+            padding: 20px;
+        }
+        .card-image-container {
+            height: 200px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class='site-header'>
+        <div class='top-nav'>
+            <a href='#inicio'>Inicio</a>
+            <a href='#categorias'>Categorías</a>
+            <a href='#about'>Sobre Mí</a>
+        </div>
+        <a class='big-title' href='#inicio'>• Ungender •</a>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class='container'>
+        <div class='blog-posts' id='posts-container'>
+            <!-- Posts se generarán aquí -->
+        </div>
+    </main>
+
+    <!-- PAGINATION -->
+    <div class='pagination'>
+        <a href='#' class='prev-page' id='prev-btn'>← Anteriores</a>
+        <span id='current-page'>Página 1</span>
+        <a href='#' class='next-page' id='next-btn'>Siguientes →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 Ungender. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- DATOS DE EJEMPLO EN JAVASCRIPT -->
+    <script>
+    // Datos de ejemplo (reemplaza con tus propios datos o conecta a una API)
+    const blogPosts = [
+        {
+            id: 1,
+            title: 'Explorando la identidad en el mundo moderno',
+            excerpt: 'Un análisis profundo sobre cómo la identidad se construye en la era digital y qué significa ser auténtico en un mundo conectado.',
+            author: 'Autor',
+            date: 'Febrero 15, 2024',
+            category: 'Reflexión',
+            image: null,
+            url: '#post-1'
+        },
+        {
+            id: 2,
+            title: 'Moda y expresión personal',
+            excerpt: 'La ropa como herramienta de expresión personal y cómo la moda desafía las convenciones tradicionales.',
+            author: 'Autor',
+            date: 'Febrero 10, 2024',
+            category: 'Estilo',
+            image: null,
+            url: '#post-2'
+        },
+        {
+            id: 3,
+            title: 'Conversaciones necesarias',
+            excerpt: 'Diálogos abiertos sobre temas que nos importan y cómo construir comunidades de apoyo mutuo.',
+            author: 'Autor',
+            date: 'Febrero 5, 2024',
+            category: 'Comunidad',
+            image: null,
+            url: '#post-3'
+        },
+        {
+            id: 4,
+            title: 'Libertad de ser',
+            excerpt: 'Reflexiones sobre qué significa realmente la libertad y cómo la buscamos en nuestras vidas.',
+            author: 'Autor',
+            date: 'Enero 28, 2024',
+            category: 'Filosofía',
+            image: null,
+            url: '#post-4'
+        },
+        {
+            id: 5,
+            title: 'Arte como resistencia',
+            excerpt: 'El papel del arte en la sociedad y cómo los artistas desafían narrativas establecidas.',
+            author: 'Autor',
+            date: 'Enero 20, 2024',
+            category: 'Arte',
+            image: null,
+            url: '#post-5'
+        },
+        {
+            id: 6,
+            title: 'Vivir auténticamente',
+            excerpt: 'Consejos prácticos para vivir de acuerdo con tus valores y creencias genuinas.',
+            author: 'Autor',
+            date: 'Enero 15, 2024',
+            category: 'Bienestar',
+            image: null,
+            url: '#post-6'
+        }
+    ];
+
+    const postsPerPage = 3;
+    let currentPage = 1;
+
+    // Función para renderizar posts
+    function renderPosts() {
+        const container = document.getElementById('posts-container');
+        container.innerHTML = '';
+
+        const startIndex = (currentPage - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const postsToShow = blogPosts.slice(startIndex, endIndex);
+
+        postsToShow.forEach(post => {
+            const postCard = document.createElement('div');
+            postCard.className = 'post-card';
+            postCard.innerHTML = `
+                <div class='card-meta-top'>
+                    <span>${post.date}</span>
+                    <span class='card-tag'>${post.category}</span>
+                </div>
+                <div class='card-image-container' style='background: linear-gradient(135deg, #f9f9f9 0%, #efefef 100%); display: flex; align-items: center; justify-content: center;'>
+                    <span style='color: #ccc; font-size: 12px;'>Sin Imagen</span>
+                </div>
+                <h3 class='card-title'>
+                    <a href='${post.url}'>${post.title}</a>
+                </h3>
+                <div class='card-excerpt'>
+                    ${post.excerpt}
+                </div>
+                <div class='card-footer'>
+                    Por: ${post.author}
+                </div>
+            `;
+            container.appendChild(postCard);
+        });
+
+        // Actualizar paginación
+        updatePagination();
+    }
+
+    // Función para actualizar controles de paginación
+    function updatePagination() {
+        const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+        document.getElementById('current-page').textContent = `Página ${currentPage} de ${totalPages}`;
+        
+        document.getElementById('prev-btn').disabled = currentPage === 1;
+        document.getElementById('next-btn').disabled = currentPage === totalPages;
+        
+        // Visual feedback
+        document.getElementById('prev-btn').style.opacity = currentPage === 1 ? '0.5' : '1';
+        document.getElementById('next-btn').style.opacity = currentPage === totalPages ? '0.5' : '1';
+    }
+
+    // Event listeners para paginación
+    document.getElementById('prev-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            renderPosts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
+    document.getElementById('next-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        const totalPages = Math.ceil(blogPosts.length / postsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderPosts();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
+    // Renderizar posts al cargar la página
+    document.addEventListener('DOMContentLoaded', renderPosts);
+    </script>
+</body>
+</html>
